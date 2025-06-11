@@ -23,6 +23,6 @@ return {
     ]])
   end,
   config = function()
-    vim.keymap.set('n', '<C-o>', ':Fern . -reveal=% -drawer -toggle -width=45<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<C-o>', ':Fern . -reveal=% -drawer -toggle -width=35<CR>', { noremap = true, silent = true })
   end
 }
