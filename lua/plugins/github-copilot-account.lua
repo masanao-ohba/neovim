@@ -6,10 +6,10 @@ return {
   dir = vim.fn.stdpath("config") .. "/lua/plugins",
   name = "GitHub Copilot Account Switch",
   -- 実行コマンド名
-  cmd = { "GithubAccount" },
+  cmd = { "CopilotAccount" },
   dependencies = { "ibhagwan/fzf-lua" },
   config = function()
-    vim.api.nvim_create_user_command("GithubAccount", function()
+    vim.api.nvim_create_user_command("CopilotAccount", function()
       local fzf = require("fzf-lua")
       local config_path = vim.fn.expand("~/.config/github-copilot/")
       local pattern = config_path .. "apps.*.json"
