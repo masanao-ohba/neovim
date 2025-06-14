@@ -24,6 +24,8 @@ return {
       width = 'block',
       left_pad = 2,
       right_pad = 2,
+      inline_pad = 1,
+      highlight = 'RenderMarkdownCode',
     },
     heading = {
       enabled = true,
@@ -104,8 +106,8 @@ return {
     local function hex_to_rgb(hex)
       hex = hex:gsub("#", "")
       return tonumber("0x"..hex:sub(1,2)),
-             tonumber("0x"..hex:sub(3,4)),
-             tonumber("0x"..hex:sub(5,6))
+      tonumber("0x"..hex:sub(3,4)),
+      tonumber("0x"..hex:sub(5,6))
     end
 
     -- RGB → HEX
