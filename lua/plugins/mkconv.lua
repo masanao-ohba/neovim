@@ -1,6 +1,8 @@
 return {
-  "ibhagwan/fzf-lua",
+  dir = vim.fn.stdpath("config") .. "/lua/plugins",
+  name = "Markdown Converter",
   cmd = { "MkConv" },
+  dependencies = { "ibhagwan/fzf-lua" },
   config = function()
     local function markdown_to_backlog(text)
       text = text:gsub("```.-\n(.-)\n```", "{code}\n%1\n{/code}")
