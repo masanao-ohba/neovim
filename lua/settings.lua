@@ -36,6 +36,8 @@ highlight NonText guibg=NONE ctermbg=NONE
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohlsearch<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', 'gt', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-h>', 'gT', { noremap = true, silent = true })
+vim.keymap.set('n', ',vd', ':vertical diffsplit ', { noremap = true })
+vim.keymap.set('n', ',sd', ':diffsplit ', { noremap = true })
 
 -- カーソルカラムの表示をトグルする関数
 function ToggleCursorColumn()
@@ -56,3 +58,4 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt.tabstop = 2
   end,
 })
+
