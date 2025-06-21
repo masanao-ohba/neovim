@@ -11,5 +11,10 @@ return {
       -- 設定モジュールを呼び出す
       require("copilot_chat_config").setup()
     end,
+    opts = {
+      -- プラグインのオプションをここに設定
+      model = "claude-3.7-sonnet",
+      debug = true,
+    },
   },
 }

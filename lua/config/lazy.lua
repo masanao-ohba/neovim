@@ -10,7 +10,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- 個別ファイルに分けたプラグイン群
-  { import = "plugins" },
+  -- { import = "plugins" },
+  { import = "plugins.ai" },
+  { import = "plugins.commands" },
+  { import = "plugins.completion" },
+  { import = "plugins.devtools" },
+  { import = "plugins.file" },
+  { import = "plugins.visualize" },
 
   -- 個別ファイルにしていないプラグイン（ここに追加）
   { "tpope/vim-fugitive" },

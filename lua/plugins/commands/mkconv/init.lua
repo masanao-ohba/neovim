@@ -1,5 +1,5 @@
 return {
-  dir = vim.fn.stdpath("config") .. "/lua/plugins/mkconv",
+  dir = vim.fn.stdpath("config") .. "/lua/plugins/commands/mkconv",
   name = "Markdown Converter",
   cmd = { "MkConv" },
   dependencies = { "ibhagwan/fzf-lua" },

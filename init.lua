@@ -6,5 +6,3 @@ require("settings")
 -- Lazy.nvimプラグインマネージャを読み込む
 require("config.lazy")
 
--- プラグイン固有設定
-require('toggleterm')

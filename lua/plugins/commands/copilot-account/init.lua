@@ -3,7 +3,7 @@
 -- 処理内容
 --   ~/.config/github-copilot/apps.*.json を参照して app.json としてコピー・上書きする
 return {
-  dir = vim.fn.stdpath("config") .. "/lua/plugins",
+  dir = vim.fn.stdpath("config") .. "/lua/plugins/commands/copilot-account",
   name = "GitHub Copilot Account Switch",
   -- 実行コマンド名
   cmd = { "CopilotAccount" },
