@@ -16,8 +16,11 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.encoding = 'utf-8'
 vim.o.fileencoding = 'utf-8'
 vim.o.backspace = 'start,eol,indent'
-vim.o.foldmethod = 'marker'
-vim.g.php_folding = 1
+vim.o.foldmethod = 'syntax'
+vim.o.foldlevel = 99      -- 初期状態で全て展開
+vim.o.foldlevelstart = 99 -- ファイルを開いた時に全て展開
+
+vim.g.php_folding = 0
 vim.o.conceallevel = 0
 vim.o.laststatus = 2
 vim.o.hidden = true
