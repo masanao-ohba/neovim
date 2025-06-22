@@ -1,6 +1,3 @@
--- ClaudeCode.nvim のLazy.nvim設定サンプル
--- Claude Code CLIとNeovimを統合してAIコーディング体験を提供するプラグイン
-
 return {
   "coder/claudecode.nvim",
   -- 依存関係の設定
@@ -54,75 +51,19 @@ return {
   -- 便利なキーマップの設定（オプショナル）
   keys = {
     -- AI/Claude Codeのプレフィックスキー
-    { "<leader>C-c", nil, mode = { "n", "v" }, desc = "AI/Claude Code" },
+    -- { "<leader>C-c", nil, mode = { "n", "v" }, desc = "AI/Claude Code" },
     
     -- Claudeターミナルをトグル（開閉切り替え）
-    { "<leader>C-i", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
+    { "<leader>ct", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
     
     -- 選択範囲をClaude Codeに送信（ビジュアルモードのみ）
-    { "<leader>C-s", "<cmd>ClaudeCodeSend<cr>", mode = { "v" }, desc = "Send to Claude Code" },
+    { "<leader>cs", "<cmd>ClaudeCodeSend<cr>", mode = { "v" }, desc = "Send to Claude Code" },
     
     -- Claudeターミナルを開く/フォーカス
     { "<leader>co", "<cmd>ClaudeCodeOpen<cr>", mode = { "n", "v" }, desc = "Open/Focus Claude Terminal" },
     
     -- Claudeターミナルを閉じる
-    { "<leader>C-x", "<cmd>ClaudeCodeClose<cr>", mode = { "n", "v" }, desc = "Close Claude Terminal" },
+    { "<leader>cq", "<cmd>ClaudeCodeClose<cr>", mode = { "n", "v" }, desc = "Close Claude Terminal" },
   },
 }
 
--- 関数スタイルの設定を好む場合の代替設定:
---[[
-{
-  "coder/claudecode.nvim",
-  dependencies = {
-    "folke/snacks.nvim", -- オプショナル依存関係
-  },
-  config = function()
-    -- snacksを使用する場合はロードを確認
-    -- require("snacks")
-    require("claudecode").setup({
-      -- 上記と同じオプション設定
-      auto_start = true,
-      log_level = "info",
-      terminal = {
-        split_side = "right",
-        split_width_percentage = 0.30,
-        provider = "snacks",
-        show_native_term_exit_tip = true,
-      },
-    })
-  end,
-}
---]]
-
--- 開発用の設定例（ローカル開発時）:
---[[
-return {
-  {
-    dir = "~/GitHub/claudecode.nvim", -- ローカルリポジトリのパス
-    name = "claudecode.nvim",
-    dependencies = {
-      "folke/snacks.nvim",
-    },
-    dev = true,
-    opts = {
-      log_level = "debug",              -- デバッグ用の詳細ログ
-      auto_start = true,
-      terminal = {
-        split_side = "right",
-        split_width_percentage = 0.25,
-        provider = "native",
-        show_native_term_exit_tip = false,
-      },
-    },
-    config = true,
-    keys = {
-      { "<leader>a", nil, mode = { "n", "v" }, desc = "AI/Claude Code" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
-      { "<leader>ak", "<cmd>ClaudeCodeSend<cr>", mode = { "v" }, desc = "Send to Claude Code" },
-      { "<leader>ao", "<cmd>ClaudeCodeOpen<cr>", mode = { "n", "v" }, desc = "Open/Focus Claude Terminal" },
-      { "<leader>ax", "<cmd>ClaudeCodeClose<cr>", mode = { "n", "v" }, desc = "Close Claude Terminal" },
-    },
-  },
-}
---]]
