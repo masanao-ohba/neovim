@@ -13,7 +13,7 @@ return {
       popup_border_style = "rounded", -- ポップアップのボーダースタイル
       enable_git_status = true,      -- Gitステータスの表示を有効化
       enable_diagnostics = true,     -- LSP診断情報の表示を有効化
-      
+
       -- デフォルトのソース設定
       default_component_configs = {
         -- インデント設定
@@ -25,7 +25,7 @@ return {
           last_indent_marker = "└",  -- 最後のインデントマーカー文字
           highlight = "NeoTreeIndentMarker", -- ハイライトグループ
         },
-        
+
         -- アイコン設定
         icon = {
           folder_closed = "📁",        -- 閉じたフォルダアイコン（Unicode絵文字）
@@ -34,20 +34,20 @@ return {
           default = "📄",              -- デフォルトファイルアイコン
           highlight = "NeoTreeFileIcon", -- アイコンのハイライト
         },
-        
+
         -- 修正マーカー設定
         modified = {
           symbol = "[+]",            -- 修正されたファイルのマーカー
           highlight = "NeoTreeModified", -- ハイライトグループ
         },
-        
+
         -- ファイル名設定
         name = {
           trailing_slash = false,    -- ディレクトリ名の末尾にスラッシュを付けない
           use_git_status_colors = true, -- Gitステータスの色を使用
           highlight = "NeoTreeFileName", -- ファイル名のハイライト
         },
-        
+
         -- Gitステータス設定
         git_status = {
           symbols = {
@@ -63,20 +63,20 @@ return {
           }
         },
       },
-      
+
       -- ウィンドウ設定
       window = {
         position = "left",           -- 左側に表示
-        width = 40,                  -- ウィンドウ幅
+        width = 30,                  -- ウィンドウ幅
         mapping_options = {
           noremap = true,            -- キーマッピングのnoremap設定
           nowait = true,             -- キーマッピングのnowait設定
         },
-        
+
         -- キーマッピング設定
         mappings = {
-          ["<space>"] = { 
-            "toggle_node", 
+          ["<space>"] = {
+            "toggle_node",
             nowait = false,          -- スペースキーでノードの開閉
           },
           ["<2-LeftMouse>"] = "open", -- ダブルクリックでファイルを開く
@@ -92,7 +92,7 @@ return {
           ["t"] = "open_tabnew",      -- 新しいタブで開く
           ["w"] = "open_with_window_picker", -- ウィンドウピッカーで開く
           ["z"] = "close_all_nodes",  -- すべてのノードを閉じる
-          ["a"] = { 
+          ["a"] = {
             "add",
             config = {
               show_path = "none"      -- 新規ファイル作成時のパス表示
@@ -114,46 +114,46 @@ return {
           ["i"] = "show_file_details", -- ファイル詳細表示
         }
       },
-      
+
       -- ファイルシステム設定
       filesystem = {
         visible = true,              -- ファイルシステムビューを表示
         hide_dotfiles = false,       -- ドットファイルを表示
         hide_gitignored = false,     -- gitignoreされたファイルを表示
         hide_hidden = false,         -- 隠しファイルを表示
-        
+
         -- 隠すファイル/ディレクトリのパターン
         hide_by_name = {
           ".DS_Store",
           "thumbs.db"
         },
-        
+
         -- 隠すファイルの拡張子
         hide_by_pattern = {
           "*.meta",
           "*/src/*/tsconfig.json",
         },
-        
+
         -- 常に表示するファイル
         always_show = {
           ".gitignored",
         },
-        
+
         -- ファイル数制限設定（要求された機能）
         max_items = 10,              -- ディレクトリ内の最大表示アイテム数
-        
+
         -- ディレクトリを最初に表示
         group_dirs_by = "first",
-        
+
         -- ファイルを開いた時の動作
         follow_current_file = {
           enabled = false,           -- 現在のファイルに自動フォーカスしない
           leave_dirs_open = false,   -- ディレクトリを開いたままにしない
         },
-        
+
         -- ファイルマネージャーとして使用する際の設定
         use_libuv_file_watcher = false, -- libuvファイルウォッチャーを使用しない
-        
+
         -- ウィンドウ設定
         window = {
           mappings = {
@@ -176,7 +176,7 @@ return {
             ["os"] = { "order_by_size", nowait = false }, -- サイズ順
             ["ot"] = { "order_by_type", nowait = false }, -- タイプ順
           },
-          
+
           -- ファジーファインダー設定
           fuzzy_finder_mappings = {
             ["<down>"] = "move_cursor_down",
@@ -185,11 +185,11 @@ return {
             ["<C-p>"] = "move_cursor_up",
           },
         },
-        
+
         -- コマンド設定
         commands = {}
       },
-      
+
       -- バッファ設定
       buffers = {
         follow_current_file = {
@@ -213,7 +213,7 @@ return {
           }
         },
       },
-      
+
       -- Gitステータス設定
       git_status = {
         window = {
@@ -237,7 +237,7 @@ return {
         }
       }
     })
-    
+
     -- キーマッピング設定
     vim.keymap.set('n', '<C-o>', ':Neotree filesystem toggle left<CR>', { desc = 'Neo-tree toggle' })
     vim.keymap.set('n', '<leader>bf', ':Neotree buffers reveal float<CR>', { desc = 'Neo-tree buffers' })
