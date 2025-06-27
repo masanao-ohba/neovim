@@ -42,6 +42,12 @@ vim.api.nvim_set_keymap('n', '<C-h>', 'gT', { noremap = true, silent = true })
 vim.keymap.set('n', ',vd', ':vertical diffsplit ', { noremap = true })
 vim.keymap.set('n', ',sd', ':diffsplit ', { noremap = true })
 
+-- ウィンドウ間の移動をCtrl+hjklで行う
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to window below' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to window above' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+
 -- カーソルカラムの表示をトグルする関数
 function ToggleCursorColumn()
   vim.o.cursorcolumn = not vim.o.cursorcolumn
