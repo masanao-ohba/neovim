@@ -19,7 +19,6 @@ require("lazy").setup({
   { import = "plugins.visualize" },
 
   -- 個別ファイルにしていないプラグイン（ここに追加）
-  { "tpope/vim-fugitive" },
   { "junegunn/fzf.vim" },
   { "junegunn/fzf", build = "./install --all" },
   { "shaunsingh/nord.nvim" },
