@@ -83,12 +83,9 @@ return {
           ["<cr>"] = "open",          -- Enterキーでファイルを開く
           ["<esc>"] = "cancel",       -- Escキーでキャンセル
           ["P"] = { "toggle_preview", config = { use_float = true } }, -- プレビュー表示
-          ["l"] = "open_node",        -- lキーでノードを開く（ファイルは開かない）
           ["h"] = "close_node",       -- hキーでノードを閉じる
-          ["j"] = "next_node",        -- jキーで下のノードに移動
-          ["k"] = "prev_node",        -- kキーで上のノードに移動
-          ["S"] = "open_split",       -- 水平分割で開く
-          ["s"] = "open_vsplit",      -- 垂直分割で開く
+          ["<C-h>"] = "open_split",       -- 水平分割で開く
+          ["<C-v>"] = "open_vsplit",      -- 垂直分割で開く
           ["t"] = "open_tabnew",      -- 新しいタブで開く
           ["w"] = "open_with_window_picker", -- ウィンドウピッカーで開く
           ["z"] = "close_all_nodes",  -- すべてのノードを閉じる
@@ -160,13 +157,13 @@ return {
             ["<bs>"] = "navigate_up",  -- バックスペースで上の階層に移動
             ["."] = "set_root",        -- 現在のディレクトリをルートに設定
             ["H"] = "toggle_hidden",   -- 隠しファイルの表示切り替え
-            ["/"] = "fuzzy_finder",    -- ファジーファインダー
+            ["f"] = "fuzzy_finder",    -- ファジーファインダー
             ["D"] = "fuzzy_finder_directory", -- ディレクトリのファジーファインダー
             ["#"] = "fuzzy_sorter",    -- ファジーソーター
-            ["f"] = "filter_on_submit", -- フィルター実行
-            ["<c-x>"] = "clear_filter", -- フィルタークリア
-            ["[g"] = "prev_git_modified", -- 前のGit変更ファイルに移動
-            ["]g"] = "next_git_modified", -- 次のGit変更ファイルに移動
+            ["/"] = "filter_on_submit", -- フィルター実行
+            ["<esc>"] = "clear_filter", -- フィルタークリア
+            ["<C-p>"] = "prev_git_modified", -- 前のGit変更ファイルに移動
+            ["<C-n>"] = "next_git_modified", -- 次のGit変更ファイルに移動
             ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
             ["oc"] = { "order_by_created", nowait = false }, -- 作成日時順
             ["od"] = { "order_by_diagnostics", nowait = false }, -- 診断順
