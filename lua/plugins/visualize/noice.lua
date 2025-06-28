@@ -33,5 +33,10 @@ return {
         },
       },
     })
+
+    -- notifyの背景色設定を追加
+    require("notify").setup({
+      background_colour = "#000000",
+    })
   end,
 }
