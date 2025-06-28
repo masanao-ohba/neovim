@@ -54,7 +54,7 @@ return {
     -- { "<leader>C-c", nil, mode = { "n", "v" }, desc = "AI/Claude Code" },
     
     -- Claudeターミナルをトグル（開閉切り替え）
-    { "<leader>ct", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
+    { "<leader>cc", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
     
     -- 選択範囲をClaude Codeに送信（ビジュアルモードのみ）
     { "<leader>cs", "<cmd>ClaudeCodeSend<cr>", mode = { "v" }, desc = "Send to Claude Code" },

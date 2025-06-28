@@ -53,7 +53,7 @@ function ToggleCursorColumn()
   vim.o.cursorcolumn = not vim.o.cursorcolumn
 end
 -- <LEADER>cc にマッピング（例: <Leader> が '\' の場合、\cc でトグル）
-vim.keymap.set('n', '<Leader>cc', ToggleCursorColumn, { noremap = true, silent = true, desc = "Toggle cursorcolumn" })
+vim.keymap.set('n', '<Leader>tcc', ToggleCursorColumn, { noremap = true, silent = true, desc = "Toggle cursorcolumn" })
 
 -- ファイルタイプ別インデント
 vim.api.nvim_create_autocmd('FileType', {
