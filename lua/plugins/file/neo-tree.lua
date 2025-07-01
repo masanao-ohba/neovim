@@ -236,7 +236,8 @@ return {
 
     -- キーマッピング設定
     vim.keymap.set('n', '<C-o>', ':Neotree filesystem toggle left<CR>', { desc = 'Neo-tree toggle' })
-    vim.keymap.set('n', '<leader>bf', ':Neotree buffers reveal float<CR>', { desc = 'Neo-tree buffers' })
+    -- Neo-tree buffers機能を無効化（使用頻度低いため）
+    -- vim.keymap.set('n', '<leader>bf', ':Neotree buffers reveal float<CR>', { desc = 'Neo-tree buffers' })
     vim.keymap.set('n', '<leader>gs', ':Neotree git_status<CR>', { desc = 'Neo-tree git status' })
   end,
 }

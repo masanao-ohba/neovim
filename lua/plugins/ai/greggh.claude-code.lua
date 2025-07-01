@@ -47,8 +47,8 @@ return {
           normal = "<C-_>",       -- Claude Code切り替え用ノーマルモードキーマップ、無効にするにはfalse
           terminal = "<C-_>",     -- Claude Code切り替え用ターミナルモードキーマップ、無効にするにはfalse
           variants = {
-            continue = "<leader>cC", -- continueフラグ付きClaude Code用ノーマルモードキーマップ
-            verbose = "<leader>cV",  -- verboseフラグ付きClaude Code用ノーマルモードキーマップ
+            continue = "<leader>acC", -- continueフラグ付きClaude Code用ノーマルモードキーマップ
+            verbose = false,  -- verboseフラグ無効化
           },
         },
         window_navigation = true, -- ウィンドウナビゲーションキーマップを有効にする（<C-h/j/k/l>）

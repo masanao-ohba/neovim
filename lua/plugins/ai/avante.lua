@@ -15,7 +15,7 @@ return {
     -- provideをclaudeに変更
     provider = "copilot",
     auto_suggestions_provider = "copilot",
-
+    
     -- ウィンドウ設定
     windows = {
       position = "right",
@@ -41,17 +41,9 @@ return {
         focus_on_apply = "ours",
       },
     },
-    -- キーマッピングの設定
-    mappings = {
-      suggestion = {
-        accept = "<C-c>",
-        next = "<C-n>",
-        previous = "<C-p>",
-      },
-    },
     selector = {
       --- @alias avante.SelectorProvider "native" | "fzf_lua" | "mini_pick" | "snacks" | "telescope" | fun(selector: avante.ui.Selector): nil
-      provider = "fzf",
+      provider = "fzf_lua",
       -- Options override for custom providers
       provider_opts = {},
     },
@@ -64,5 +56,28 @@ return {
         require("mcphub.extensions.avante").mcp_tool(),
       }
     end,
-  }
+  },
+  config = function(_, opts)
+    require("avante").setup(opts)
+    
+    -- デフォルトキーマップを強制削除
+    local keymaps_to_delete = {
+      "<leader>a", "<leader>aa", "<leader>ah", "<leader>as", "<leader>aB", 
+      "<leader>an", "<leader>aS", "<leader>ad", "<leader>ar", "<leader>at",
+      "<leader>af", "<leader>aR", "<leader>a?"
+    }
+    
+    for _, keymap in ipairs(keymaps_to_delete) do
+      pcall(function()
+        vim.keymap.del("n", keymap)
+        vim.keymap.del("v", keymap)
+      end)
+    end
+    
+    -- 手動でキーマップを設定（which-keyと連携）
+    vim.keymap.set("n", "<leader>aga", function() require("avante.api").ask() end, { desc = "Avante: Ask" })
+    vim.keymap.set("v", "<leader>aga", function() require("avante.api").ask() end, { desc = "Avante: Ask" })
+    vim.keymap.set("n", "<leader>age", function() require("avante.api").edit() end, { desc = "Avante: Edit" })
+    vim.keymap.set("v", "<leader>age", function() require("avante.api").edit() end, { desc = "Avante: Edit" })
+  end,
 }

@@ -11,8 +11,8 @@ return {
         vim.keymap.set('n', '<leader>gB', '<cmd>DiffviewFileHistory<cr>', { desc = 'Git history for project' })
 
         -- コミット間の移動
-        vim.keymap.set('n', '<S-P>', gs.prev_hunk, { buffer = bufnr, desc = 'Previous hunk' })
-        vim.keymap.set('n', '<S-N>', gs.next_hunk, { buffer = bufnr, desc = 'Next hunk' })
+        vim.keymap.set('n', '<C-p>', gs.prev_hunk, { buffer = bufnr, desc = 'Previous hunk' })
+        vim.keymap.set('n', '<C-n>', gs.next_hunk, { buffer = bufnr, desc = 'Next hunk' })
 
         -- その他便利なキーマップ
         vim.keymap.set('n', '<leader>gp', gs.preview_hunk, { buffer = bufnr, desc = 'Preview hunk' })

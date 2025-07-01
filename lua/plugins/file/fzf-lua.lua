@@ -50,27 +50,28 @@ return {
     end
 
     vim.keymap.set("n", "<F12>", _G.search_with_highlight, { noremap = true, silent = true })
-    vim.keymap.set("n", ",f", function()
-      fzf_lua.files({
-        actions = {
-          ["default"] = function(selected)
-            if #selected == 0 then
-              print("No file selected.")
-              return
-            end
-            for _, file in ipairs(selected) do
-              local cleaned = file:gsub("[^%g%s/]", ""):gsub("^%s+", ""):gsub("%s+$", "")
-              local full = vim.fn.fnamemodify(cleaned, ":p")
-              if vim.fn.filereadable(full) == 1 then
-                vim.cmd("tabedit " .. vim.fn.fnameescape(full))
-              else
-                print("Error: File not readable -> " .. full)
-              end
-            end
-          end,
-        },
-      })
-    end, { noremap = true, silent = true })
+    -- FZF files機能を無効化（使用頻度低いため）
+    -- vim.keymap.set("n", ",f", function()
+    --   fzf_lua.files({
+    --     actions = {
+    --       ["default"] = function(selected)
+    --         if #selected == 0 then
+    --           print("No file selected.")
+    --           return
+    --         end
+    --         for _, file in ipairs(selected) do
+    --           local cleaned = file:gsub("[^%g%s/]", ""):gsub("^%s+", ""):gsub("%s+$", "")
+    --           local full = vim.fn.fnamemodify(cleaned, ":p")
+    --           if vim.fn.filereadable(full) == 1 then
+    --             vim.cmd("tabedit " .. vim.fn.fnameescape(full))
+    --           else
+    --             print("Error: File not readable -> " .. full)
+    --           end
+    --         end
+    --       end,
+    --     },
+    --   })
+    -- end, { noremap = true, silent = true })
 
     vim.o.hidden = true
   end,

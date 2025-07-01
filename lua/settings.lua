@@ -39,21 +39,21 @@ highlight NonText guibg=NONE ctermbg=NONE
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohlsearch<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', 'gt', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-h>', 'gT', { noremap = true, silent = true })
-vim.keymap.set('n', ',vd', ':vertical diffsplit ', { noremap = true })
-vim.keymap.set('n', ',sd', ':diffsplit ', { noremap = true })
+vim.keymap.set('n', ',vdv', ':vertical diffsplit ', { noremap = true, desc = 'Vertical diff split' })
+vim.keymap.set('n', ',vdh', ':diffsplit ', { noremap = true, desc = 'Horizontal diff split' })
 
 -- ウィンドウ間の移動をCtrl+hjklで行う
-vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to window below' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to window above' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+-- vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+-- vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to window below' })
+-- vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to window above' })
+-- vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 
 -- カーソルカラムの表示をトグルする関数
 function ToggleCursorColumn()
   vim.o.cursorcolumn = not vim.o.cursorcolumn
 end
 -- <LEADER>cc にマッピング（例: <Leader> が '\' の場合、\cc でトグル）
-vim.keymap.set('n', '<Leader>tcc', ToggleCursorColumn, { noremap = true, silent = true, desc = "Toggle cursorcolumn" })
+vim.keymap.set('n', ',vc', ToggleCursorColumn, { noremap = true, silent = true, desc = "Toggle cursor column" })
 
 -- ファイルタイプ別インデント
 vim.api.nvim_create_autocmd('FileType', {

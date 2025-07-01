@@ -9,6 +9,7 @@ return {
         }
       }
     })
-    vim.keymap.set('n', '<leader>gb', '<cmd>DiffviewFileHistory %<cr>')
+    -- Git blame/historyはgitsignsに統一のためコメントアウト
+    -- vim.keymap.set('n', '<leader>gb', '<cmd>DiffviewFileHistory %<cr>')
   end
 }

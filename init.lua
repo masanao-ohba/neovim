@@ -1,4 +1,4 @@
-vim.g.mapleader = ","  -- 好きなキーに設定
+vim.g.mapleader = " "  -- 好きなキーに設定
 
 -- 共通設定をロード
 require("settings")

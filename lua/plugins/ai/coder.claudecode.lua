@@ -50,20 +50,15 @@ return {
   
   -- 便利なキーマップの設定（オプショナル）
   keys = {
-    -- AI/Claude Codeのプレフィックスキー
-    -- { "<leader>C-c", nil, mode = { "n", "v" }, desc = "AI/Claude Code" },
-    
     -- Claudeターミナルをトグル（開閉切り替え）
-    { "<leader>cc", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
+    { "<leader>acc", "<cmd>ClaudeCode<cr>", mode = { "n", "v" }, desc = "Toggle Claude Terminal" },
     
     -- 選択範囲をClaude Codeに送信（ビジュアルモードのみ）
-    { "<leader>cs", "<cmd>ClaudeCodeSend<cr>", mode = { "v" }, desc = "Send to Claude Code" },
+    { "<leader>acs", "<cmd>ClaudeCodeSend<cr>", mode = { "v" }, desc = "Send to Claude Code" },
     
-    -- Claudeターミナルを開く/フォーカス
-    { "<leader>co", "<cmd>ClaudeCodeOpen<cr>", mode = { "n", "v" }, desc = "Open/Focus Claude Terminal" },
-    
-    -- Claudeターミナルを閉じる
-    { "<leader>cq", "<cmd>ClaudeCodeClose<cr>", mode = { "n", "v" }, desc = "Close Claude Terminal" },
+    -- 重複機能のため無効化
+    -- { "<leader>aco", "<cmd>ClaudeCodeOpen<cr>", mode = { "n", "v" }, desc = "Open/Focus Claude Terminal" },
+    -- { "<leader>acq", "<cmd>ClaudeCodeClose<cr>", mode = { "n", "v" }, desc = "Close Claude Terminal" },
   },
 }
 

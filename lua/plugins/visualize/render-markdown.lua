@@ -171,6 +171,6 @@ return {
 
     vim.cmd("doautocmd ColorScheme")
 
-    vim.keymap.set("n", "<leader>mr", require("render-markdown").toggle, { desc = "Toggle Render Markdown" })
+    vim.keymap.set("n", ",vm", require("render-markdown").toggle, { desc = "Toggle Render Markdown" })
   end,
 }

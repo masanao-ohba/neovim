@@ -9,11 +9,11 @@ function M.setup()
       --   mapping = "<leader>ce",
       --   description = "コードの説明をお願いする",
       -- },
-      Review = {
-        prompt = "/COPILOT_REVIEW コードを日本語でレビューしてください。",
-        mapping = "<leader>cr",
-        description = "コードのレビューをお願いする",
-      },
+      -- Review = {
+      --   prompt = "/COPILOT_REVIEW コードを日本語でレビューしてください。",
+      --   mapping = "<leader>cr",
+      --   description = "コードのレビューをお願いする",
+      -- },
       -- Fix = {
       --   prompt = "/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。",
       --   mapping = "<leader>cf",
@@ -58,7 +58,7 @@ function M.setup()
   })
 
   -- <leader>ch でチャットを開くマッピング
-  vim.keymap.set("n", "<leader>ch", "<Cmd>CopilotChat<CR>", { noremap = true, silent = true })
+  -- vim.keymap.set("n", "<leader>ch", "<Cmd>CopilotChat<CR>", { noremap = true, silent = true })
 end
 
 return M
