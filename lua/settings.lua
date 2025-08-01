@@ -68,7 +68,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-local replace = require("word-replace")
-vim.keymap.set("n", "<Leader>r", replace.replace_with_highlight, { noremap = true, silent = true })
+local replace = require("modules/word-replace")
 vim.keymap.set("n", "<Leader>R", replace.replace_with_input, { noremap = true, silent = true })
+
+require("modules/code-block")
+-- ノーマルモードでコードブロック挿入
+vim.keymap.set("n", "<leader>`", function()
+  require("modules.code-block").insert_code_block()
+end, { desc = "コードブロック挿入" })
+
+-- ビジュアルモードで選択範囲をバッククォートで括る
+vim.keymap.set("v", "<leader>`", function()
+  require("modules.code-block").wrap_selection_with_backtick()
+end, { desc = "選択範囲をバッククォートで括る" })
 
