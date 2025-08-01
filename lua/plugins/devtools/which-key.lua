@@ -18,6 +18,7 @@ return {
     },
     -- グループ表示の設定
     icons = {
+      mappings = false,
       group = "", -- グループの前に表示される文字を空にする（"+"を非表示）
     },
   },
@@ -32,13 +33,21 @@ return {
 
     -- 基本的なキーマッピングのグループを登録
     wk.add({
-      { "<leader>a", group = "AI" },
-      { "<leader>ac", group = "Claude" },
-      { "<leader>ag", group = "Avante" },
-      { "<leader>g", group = "Git" },
-      { ",v", group = " View" },
-      { ",vd", group = "View Diff Tools" },
-      { ",t", group = " Terminal" },
+      { "<leader>a",   group = "󰚩  AI" },
+      { "<leader>ac",  group = "󰛄  Claude" },
+      { "<leader>ag",  group = "  Avante" },
+      { "<leader>aga", desc  = "󱋉  Ask"},
+      { "<leader>age", desc  = "  Edit" },
+      { "<leader>g",   group = "  Git" },
+      { "<leader>gs",  desc  = "󱖫  Git Status NeoTree" },
+      { "<leader>c",   desc  = "  Color Managements" },
+      { "<leader>cp",  desc  = "󰴱  ColorPicker" },
+      { "<leader>cc",  desc  = "  Convert ColorFromat" },
+      { "<leader>`",   group = "  Code Block for Markdown" },
+      { "<leader>R",   group = "󰛔  Bulk Replacein the Project" },
+      { ",v",          group = "  View" },
+      { ",vd",         group = "  View Diff Tools" },
+      { ",t",          group = "  Terminal" },
     })
   end,
 }
