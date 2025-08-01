@@ -68,3 +68,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+local replace = require("word-replace")
+vim.keymap.set("n", "<Leader>r", replace.replace_with_highlight, { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>R", replace.replace_with_input, { noremap = true, silent = true })
+
