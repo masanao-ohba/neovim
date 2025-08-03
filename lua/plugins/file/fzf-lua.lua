@@ -5,34 +5,14 @@ return {
       height = 0.85,
       width = 0.85,
       preview = {
-        default = "bat",
-        theme = "moonlight",
+        default = "bat_native",
         layout = "horizontal",
         vertical = "right:60%",
       },
     },
     grep = {
       prompt = "*Rg> ",
-      rg_opts = "--column --line-number --no-heading --color=always --smart-case --with-filename",
-      actions = {
-        ["default"] = function(selected)
-          for _, item in ipairs(selected) do
-            local item = item:gsub("[^%g%s/]", ""):gsub("^%s+", ""):gsub("%s+$", "")
-            item = vim.trim(item)
-            local file, line_num = item:match("^([^:]+):(%d+):%d+:")
-            if not file then
-              file, line_num = item:match("^([^:]+):(%d+):")
-            end
-            if file and line_num then
-              vim.cmd("tabedit " .. vim.fn.fnameescape(file))
-              vim.cmd("e")
-              vim.cmd(line_num)
-            else
-              print("Error: Could not parse grep result -> " .. item)
-            end
-          end
-        end,
-      },
+      rg_opts = "--column --line-number --no-heading --color=never --smart-case --with-filename",
     },
   },
   -- setup 実行後に追加マッピングや関数を定義します
@@ -46,7 +26,21 @@ return {
         print("No highlighted text found for search")
         return
       end
-      fzf_lua.grep({ search = query, prompt = "*Rg> " })
+
+      -- カスタム実装: rgコマンドを直接実行してfzfに結果を渡す
+      local cmd = string.format('rg "%s" --column --line-number --no-heading --color=always --smart-case --with-filename', query)
+
+      fzf_lua.fzf_exec(cmd, {
+        prompt = "*Rg> ",
+        actions = {
+          ["default"] = fzf_lua.actions.file_tabedit,
+        },
+        fzf_opts = {
+          ['--delimiter'] = ':',
+          ['--preview-window'] = 'right:60%,+{2}+3/3,~3',
+        },
+        preview = "bat --style=numbers --color=always --highlight-line={2} {1}",
+      })
     end
 
     vim.keymap.set("n", "<F12>", _G.search_with_highlight, { noremap = true, silent = true })
