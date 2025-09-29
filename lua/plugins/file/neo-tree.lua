@@ -98,6 +98,17 @@ return {
           ["d"] = "delete",               -- ファイル/ディレクトリ削除
           ["r"] = "rename",               -- ファイル/ディレクトリ名変更
           ["y"] = "copy_to_clipboard",    -- クリップボードにコピー
+          ["Y"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+              -- プロジェクトルートからの相対パスを取得
+              local relative_path = vim.fn.fnamemodify(path, ":.")
+              vim.fn.setreg("+", relative_path)
+              vim.notify("Copied relative path: " .. relative_path)
+            end,
+            desc = "Copy relative path to clipboard"
+          },
           ["x"] = "cut_to_clipboard",     -- クリップボードに切り取り
           ["p"] = "paste_from_clipboard", -- クリップボードから貼り付け
           ["c"] = "copy",                 -- ファイルコピー
@@ -143,12 +154,12 @@ return {
 
         -- ファイルを開いた時の動作
         follow_current_file = {
-          enabled = false,           -- 現在のファイルに自動フォーカスしない
-          leave_dirs_open = false,   -- ディレクトリを開いたままにしない
+          enabled = true,           -- 現在のファイルに自動フォーカスしない
+          leave_dirs_open = true,   -- ディレクトリを開いたままにしない
         },
 
         -- ファイルマネージャーとして使用する際の設定
-        use_libuv_file_watcher = false, -- libuvファイルウォッチャーを使用しない
+        use_libuv_file_watcher = true, -- libuvファイルウォッチャーを使用しない
 
         -- ウィンドウ設定
         window = {
