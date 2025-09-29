@@ -24,6 +24,7 @@ vim.g.php_folding = 0
 vim.o.conceallevel = 0
 vim.o.laststatus = 2
 vim.o.hidden = true
+vim.o.wrap = false
 
 -- カラースキーム
 vim.cmd('syntax on')
@@ -78,9 +79,14 @@ vim.keymap.set("n", "<leader>`", function()
 end, { desc = "コードブロック挿入" })
 
 -- ビジュアルモードで選択範囲をバッククォートで括る
-vim.keymap.set("v", "<leader>`", function()
+vim.keymap.set("v", "`", function()
   require("modules.code-block").wrap_selection_with_backtick()
 end, { desc = "選択範囲をバッククォートで括る" })
+
+-- ノーマルモードでカーソル下の単語をバッククォートで括る
+vim.keymap.set("n", "`", function()
+  require("modules.code-block").wrap_word_under_cursor()
+end, { desc = "カーソル下の単語をバッククォートで括る" })
 
 -- GitHub URLをクリップボードにコピー
 vim.keymap.set({"n", "v"}, "<Leader>gy", function()
