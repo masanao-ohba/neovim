@@ -40,6 +40,7 @@ return {
       { "<leader>age", desc  = "  Edit" },
       { "<leader>g",   group = "  Git" },
       { "<leader>gs",  desc  = "󱖫  Git Status NeoTree" },
+      { "<leader>gy",  desc  = "  Git Yank GitHub URL" },
       { "<leader>c",   desc  = "  Color Managements" },
       { "<leader>cp",  desc  = "󰴱  ColorPicker" },
       { "<leader>cc",  desc  = "  Convert ColorFromat" },

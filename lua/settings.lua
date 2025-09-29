@@ -82,3 +82,8 @@ vim.keymap.set("v", "<leader>`", function()
   require("modules.code-block").wrap_selection_with_backtick()
 end, { desc = "選択範囲をバッククォートで括る" })
 
+-- GitHub URLをクリップボードにコピー
+vim.keymap.set({"n", "v"}, "<Leader>gy", function()
+  require("modules.github-url").copy_github_url()
+end, { desc = "GitHub URLをコピー" })
+
