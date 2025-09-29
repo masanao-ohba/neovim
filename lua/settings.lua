@@ -88,6 +88,11 @@ vim.keymap.set("n", "`", function()
   require("modules.code-block").wrap_word_under_cursor()
 end, { desc = "カーソル下の単語をバッククォートで括る" })
 
+-- 相対パスと行番号を取得してクリップボードにコピー
+vim.keymap.set("n", "<C-c>", function()
+  require("modules.path-info").get_relative_path_and_line()
+end, { desc = "相対パスと行番号をコピー (@path Lline形式)" })
+
 -- GitHub URLをクリップボードにコピー
 vim.keymap.set({"n", "v"}, "<Leader>gy", function()
   require("modules.github-url").copy_github_url()
