@@ -37,21 +37,22 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local gitsigns = require('gitsigns')
-    
+
     -- Global keymaps for navigation (works even before buffer attach)
     vim.keymap.set('n', '<C-n>', function()
       if vim.wo.diff then return '<C-n>' end
       vim.schedule(function() gitsigns.next_hunk() end)
       return '<Ignore>'
     end, { expr = true, desc = 'Next git hunk' })
-    
+
     vim.keymap.set('n', '<C-p>', function()
       if vim.wo.diff then return '<C-p>' end
       vim.schedule(function() gitsigns.prev_hunk() end)
       return '<Ignore>'
     end, { expr = true, desc = 'Previous git hunk' })
-    
+
     gitsigns.setup({
+      base = 'HEAD', -- Compare against HEAD instead of index (shows staged changes)
       current_line_blame = false, -- お好みで true にすると常時表示
       signs = {
         add          = { text = '▊' },  -- Wider block character for better visibility
