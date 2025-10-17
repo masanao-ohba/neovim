@@ -1,3 +1,26 @@
+-- ============================================================================
+-- Plugin: avante.nvim
+-- Repository: yetone/avante.nvim
+-- Category: AI Assistance
+--
+-- Purpose:
+--   AI-powered code editing and chat interface with Claude/GPT integration.
+--   Provides an interactive sidebar for AI-assisted development.
+--
+-- Key Features:
+--   - Interactive AI chat with full code context
+--   - Direct code editing through AI suggestions
+--   - MCP (Model Context Protocol) server integration via mcphub
+--   - Customizable AI providers (Copilot backend with Claude/GPT models)
+--   - Window-based interface with configurable sidebar position
+--   - fzf-lua integration for intelligent selections
+--   - Custom keybindings for ask and edit operations
+--
+-- Keybindings:
+--   <leader>aga - Ask AI a question (normal/visual mode)
+--   <leader>age - Edit code with AI assistance (normal/visual mode)
+-- ============================================================================
+
 return {
   "yetone/avante.nvim",
   build = "make",
@@ -15,7 +38,10 @@ return {
     -- provideをclaudeに変更
     provider = "copilot",
     auto_suggestions_provider = "copilot",
-    
+    copilot = {
+      -- model = "claude-sonnet-4"
+      model = "gpt-4.1"
+    },
     -- ウィンドウ設定
     windows = {
       position = "right",
@@ -75,6 +101,7 @@ return {
     end
     
     -- 手動でキーマップを設定（which-keyと連携）
+    -- vim.keymap.set("n", "<leader>agc", function() require("avante.api").chat() end, { desc = "Avante: Chat" })
     vim.keymap.set("n", "<leader>aga", function() require("avante.api").ask() end, { desc = "Avante: Ask" })
     vim.keymap.set("v", "<leader>aga", function() require("avante.api").ask() end, { desc = "Avante: Ask" })
     vim.keymap.set("n", "<leader>age", function() require("avante.api").edit() end, { desc = "Avante: Edit" })

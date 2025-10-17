@@ -1,3 +1,30 @@
+-- ============================================================================
+-- Plugin: nvim-treesitter
+-- Repository: nvim-treesitter/nvim-treesitter
+-- Category: Syntax & Parsing
+--
+-- Purpose:
+--   Advanced syntax highlighting and code understanding using Tree-sitter
+--   parsers. Provides precise syntax awareness for better highlighting,
+--   folding, and code manipulation.
+--
+-- Key Features:
+--   - Accurate syntax-aware highlighting (better than regex-based)
+--   - Tree-sitter based code folding
+--   - Smart indentation based on syntax tree
+--   - Incremental parsing for performance
+--   - Multiple language support (Lua, Python, PHP, JavaScript, HTML, CSS)
+--   - Lazy loading on buffer read for optimal startup time
+--   - Fallback to indent folding when parser unavailable
+--
+-- Supported Languages:
+--   lua, python, php, javascript, html, css
+--
+-- Folding:
+--   Uses foldmethod=expr with Tree-sitter foldexpr
+--   Default foldlevel=99 (all folds open by default)
+-- ============================================================================
+
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",

@@ -1,7 +1,25 @@
--- 概要
---   GitHubCopilotのアカウントを切り替えるためのプラグイン
--- 処理内容
---   ~/.config/github-copilot/apps.*.json を参照して app.json としてコピー・上書きする
+-- ============================================================================
+-- Plugin: GitHub Copilot Account Switch
+-- Category: Custom Command / Utility
+--
+-- Purpose:
+--   Switch between multiple GitHub Copilot accounts by managing
+--   configuration files in ~/.config/github-copilot/ directory.
+--
+-- Key Features:
+--   - Fuzzy search interface for account selection (fzf-lua)
+--   - Automatic configuration file switching (apps.*.json → apps.json)
+--   - Visual feedback for successful account switching
+--   - Supports multiple account configurations
+--
+-- Commands:
+--   :CopilotAccount - Launch account switcher
+--
+-- Configuration:
+--   Place account-specific configs as:
+--   ~/.config/github-copilot/apps.{account-name}.json
+-- ============================================================================
+
 return {
   dir = vim.fn.stdpath("config") .. "/lua/plugins/commands/copilot-account",
   name = "GitHub Copilot Account Switch",

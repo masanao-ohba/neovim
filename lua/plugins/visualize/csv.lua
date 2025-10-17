@@ -1,36 +1,45 @@
+-- ============================================================================
+-- Plugin: csv.vim
+-- Repository: chrisbra/csv.vim
+-- Category: File Format Support / Visual Enhancement
+--
+-- Purpose:
+--   CSV file viewing and editing with enhanced column-based features.
+--   Provides specialized tools for working with comma-separated data files.
+--
+-- Key Features:
+--   - Column-based navigation and highlighting
+--   - Automatic delimiter detection (comma by default)
+--   - Header row highlighting (Title style)
+--   - Automatic column arrangement
+--   - Concealment for better readability (level 2)
+--   - Concealment in normal and command mode
+--   - Filetype-specific automatic initialization
+--
+-- Configuration:
+--   Delimiter: comma (,)
+--   Column highlighting: enabled
+--   Auto-arrange: enabled
+--   Header highlight: Title group
+--   Concealment: level 2, modes "nc"
+-- ============================================================================
+
 return {
   "chrisbra/csv.vim",
-  ft = { "csv" },  -- CSVファイルのときだけ読み込み
-  config = function()
-    -- デリミタの設定
+  ft = { "csv" },
+  init = function()
     vim.g.csv_delim = ','
-
-    -- ファイル読み込み・ウィンドウ表示時に整列
-    vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
-      pattern = "*.csv",
+    vim.g.csv_highlight_column = 'y'
+    vim.g.csv_autocmd_arrange = 1
+    vim.g.csv_hiHeader = "Title"
+  end,
+  config = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "csv",
       callback = function()
-        local ok, _ = pcall(vim.cmd, "%ArrangeColumn")
-        if not ok then
-          print("ArrangeColumn command failed to execute. Check csv.vim plugin.")
-        else
-          print("ArrangeColumn executed successfully.")
-        end
-
-        -- 現在の列をハイライトする設定
-        vim.g.csv_highlight_column = 'y'
-      end,
-    })
-
-    -- 保存時に整形を解除
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*.csv",
-      callback = function()
-        local ok, _ = pcall(vim.cmd, "%CSVUnArrange")
-        if not ok then
-          print("CSVUnArrange command failed to execute. Check csv.vim plugin.")
-        else
-          print("CSVUnArrange executed successfully.")
-        end
+        vim.cmd("silent! call csv#Init()")
+        vim.opt_local.conceallevel = 2
+        vim.opt_local.concealcursor = "nc"
       end,
     })
   end

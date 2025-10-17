@@ -1,3 +1,31 @@
+-- ============================================================================
+-- Plugin: Markdown Converter
+-- Category: Custom Command / Text Processing
+--
+-- Purpose:
+--   Bidirectional converter between Markdown and Backlog wiki syntax.
+--   Enables easy content migration between different documentation systems.
+--
+-- Key Features:
+--   - Markdown → Backlog conversion (headers, lists, code blocks, links)
+--   - Backlog → Markdown conversion
+--   - Preserves code blocks and inline code formatting
+--   - Handles nested lists with proper indentation
+--   - Interactive conversion selector with fzf-lua
+--   - In-place buffer content replacement
+--
+-- Commands:
+--   :MkConv - Launch conversion mode selector
+--
+-- Supported Conversions:
+--   Headers:      # → * (and vice versa)
+--   Ordered List: 1. → + (and vice versa)
+--   Bullet List:  - → - (preserves but adjusts nesting)
+--   Code Blocks:  ``` → {code} (and vice versa)
+--   Links:        [text](url) → [[text:url]] (and vice versa)
+--   Bold:         **text** → ''text'' (and vice versa)
+-- ============================================================================
+
 return {
   dir = vim.fn.stdpath("config") .. "/lua/plugins/commands/mkconv",
   name = "Markdown Converter",

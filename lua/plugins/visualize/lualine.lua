@@ -1,3 +1,29 @@
+-- ============================================================================
+-- Plugin: lualine.nvim
+-- Repository: nvim-lualine/lualine.nvim
+-- Category: Status Line / Visual Enhancement
+--
+-- Purpose:
+--   Fast and highly customizable statusline for Neovim.
+--   Displays essential file and git information at the bottom of the window.
+--
+-- Key Features:
+--   - Git branch display
+--   - File information (name, encoding, format, type)
+--   - Diff statistics (additions/deletions)
+--   - LSP diagnostics integration (errors, warnings, hints)
+--   - Minimal and clean design
+--   - Fast performance with lazy updates
+--
+-- Status Line Sections:
+--   lualine_a: filename
+--   lualine_b: git branch
+--   lualine_c: diff stats, diagnostics
+--   lualine_x: file encoding, file format
+--   lualine_y: filetype
+--   lualine_z: (empty)
+-- ============================================================================
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },

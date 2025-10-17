@@ -1,3 +1,29 @@
+-- ============================================================================
+-- Plugin: claude-code.nvim
+-- Repository: greggh/claude-code.nvim
+-- Category: AI Assistance
+--
+-- Purpose:
+--   Alternative Claude Code CLI integration with enhanced terminal management.
+--   Provides a feature-rich terminal interface for Claude Code interactions.
+--
+-- Key Features:
+--   - Integrated terminal for Claude Code CLI
+--   - Automatic git project root detection and navigation
+--   - File change monitoring with auto-refresh capability
+--   - Customizable window positioning (split/vertical/floating)
+--   - Conversation management (continue last/resume with selection)
+--   - Terminal navigation keybindings for seamless editor integration
+--   - Shell-specific command separator configuration
+--   - Notification system for file changes
+--
+-- Keybindings:
+--   <C-_>       - Toggle Claude Code terminal
+--   <leader>acC - Continue last conversation
+--   <C-h/j/k/l> - Navigate between windows (if enabled)
+--   <C-f/b>     - Page up/down in terminal (if enabled)
+-- ============================================================================
+
 return {
   "greggh/claude-code.nvim",
   dependencies = {

@@ -1,4 +1,27 @@
--- lazy.nvim用
+-- ============================================================================
+-- Plugin: noice.nvim
+-- Repository: folke/noice.nvim
+-- Category: UI Enhancement / Visual Enhancement
+--
+-- Purpose:
+--   Enhanced command line and notification interface with modern aesthetics.
+--   Replaces default Neovim UI elements with beautiful popups.
+--
+-- Key Features:
+--   - Popup command line interface (centered)
+--   - Enhanced notification system with fade animations
+--   - Message history management
+--   - Configurable notification timeout (500ms)
+--   - Rounded borders for modern look
+--   - Custom command line icon (>_)
+--   - Black background for notifications
+--
+-- Configuration:
+--   Command line: centered popup at 40% vertical position
+--   Notifications: fade animation with 500ms timeout
+--   Background: solid black (#000000)
+-- ============================================================================
+
 return {
   "folke/noice.nvim",
   dependencies = {

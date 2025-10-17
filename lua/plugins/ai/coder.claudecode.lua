@@ -1,3 +1,27 @@
+-- ============================================================================
+-- Plugin: claudecode.nvim
+-- Repository: coder/claudecode.nvim
+-- Category: AI Assistance
+--
+-- Purpose:
+--   Claude Code integration via WebSocket server for AI-assisted development.
+--   Provides seamless communication between Neovim and Claude Code CLI.
+--
+-- Key Features:
+--   - WebSocket server for real-time Claude Code communication
+--   - Selection tracking with automatic context updates to Claude
+--   - Diff provider for visualizing AI-suggested code changes
+--   - Terminal integration with multiple provider options (snacks/native)
+--   - Auto-start capability for immediate availability
+--   - Visual selection context preservation during terminal switching
+--   - Customizable port range for WebSocket server
+--   - openDiff MCP tool support with auto-close and statistics
+--
+-- Keybindings:
+--   <leader>acc - Toggle Claude Code terminal (normal/visual mode)
+--   <leader>acs - Send selection to Claude Code (visual mode only)
+-- ============================================================================
+
 return {
   "coder/claudecode.nvim",
   -- 依存関係の設定

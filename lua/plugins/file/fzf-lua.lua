@@ -1,3 +1,30 @@
+-- ============================================================================
+-- Plugin: fzf-lua
+-- Repository: ibhagwan/fzf-lua
+-- Category: Fuzzy Finder / File Management
+--
+-- Purpose:
+--   Fast fuzzy finder for files, buffers, and text using fzf and ripgrep.
+--   Provides comprehensive search capabilities with preview windows.
+--
+-- Key Features:
+--   - File searching with bat preview
+--   - Ripgrep integration for text search across project
+--   - Buffer and tab navigation
+--   - Horizontal preview layout (60% width)
+--   - Custom search functions (word-under-cursor search)
+--   - Smart-case searching
+--   - Customizable actions (tabedit by default)
+--
+-- Keybindings:
+--   <F12> - Search word under cursor with ripgrep
+--
+-- Configuration:
+--   Window size: 85% width x 85% height
+--   Preview: bat_native with syntax highlighting
+--   Search: ripgrep with column/line numbers
+-- ============================================================================
+
 return {
   "ibhagwan/fzf-lua",
   opts = {

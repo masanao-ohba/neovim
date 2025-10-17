@@ -1,3 +1,36 @@
+-- ============================================================================
+-- Plugin: which-key.nvim
+-- Repository: folke/which-key.nvim
+-- Category: Keybinding Helper / Development Tools
+--
+-- Purpose:
+--   Display available keybindings in a popup menu with descriptions.
+--   Helps discover and remember complex keybinding hierarchies.
+--
+-- Key Features:
+--   - Hierarchical keybinding display with icons
+--   - Custom group definitions for organized menus
+--   - Modern preset UI with clean aesthetics
+--   - Context-aware keybinding suggestions
+--   - Configurable delay before popup appears
+--   - Hidden keybindings support (e.g., <Esc>)
+--
+-- Defined Groups:
+--   <leader>a   - AI operations
+--   <leader>ac  - Claude integrations
+--   <leader>ag  - Avante operations
+--   <leader>g   - Git operations
+--   <leader>c   - Color management
+--   <leader>`   - Code blocks for Markdown
+--   <leader>R   - Bulk replace in project
+--   ,v          - View options
+--   ,t          - Terminal operations
+--
+-- Configuration:
+--   delay: 450ms
+--   preset: modern
+-- ============================================================================
+
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",

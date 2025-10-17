@@ -1,3 +1,27 @@
+-- ============================================================================
+-- Plugin: copilot.lua
+-- Repository: zbirenbaum/copilot.lua
+-- Category: AI Assistance
+--
+-- Purpose:
+--   GitHub Copilot integration for inline code suggestions in Neovim.
+--   Provides real-time AI-powered code completions as you type.
+--
+-- Key Features:
+--   - Auto-triggered inline suggestions while typing
+--   - Configurable keybindings for suggestion navigation and acceptance
+--   - Filetype-specific filtering (can disable for sensitive files)
+--   - Cycle through multiple suggestion alternatives
+--   - Integration with nvim-cmp via copilot-cmp
+--   - Debounced suggestions to reduce API calls
+--
+-- Keybindings:
+--   <C-l>   - Accept suggestion
+--   <S-]>   - Next suggestion
+--   <S-[>   - Previous suggestion
+--   <C-d>   - Dismiss suggestion
+-- ============================================================================
+
 return {
   "zbirenbaum/copilot.lua",
   cmd = "Copilot",
@@ -19,7 +43,7 @@ return {
           accept_line = false,
           next = "<S-]>",
           prev = "<S-[>",
-          dismiss = "<C-c>",
+          dismiss = "<C-d>",
         },
       },
       filetypes = {

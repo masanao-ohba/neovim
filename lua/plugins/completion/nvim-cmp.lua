@@ -27,9 +27,19 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
       }),
       sources = cmp.config.sources({
-        { name = "luasnip", priority_weight = 20 },
-      }, {
-        { name = "buffer" },
+        {
+          name = "luasnip", 
+          priority_weight = 20 
+        },
+        {
+          name = 'buffer',
+          option = {
+            -- 全てのバッファを補完候補に含める
+            get_bufnrs = function()
+              return vim.api.nvim_list_bufs()
+            end
+          }
+        },
       }),
     })
   end,

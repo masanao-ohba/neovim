@@ -1,3 +1,41 @@
+-- ============================================================================
+-- Plugin: render-markdown.nvim
+-- Repository: MeanderingProgrammer/render-markdown.nvim
+-- Category: Markdown Enhancement / Visual Enhancement
+--
+-- Purpose:
+--   Rich markdown rendering with beautiful visual enhancements in buffer.
+--   Transforms markdown into a more readable, visually appealing format.
+--
+-- Key Features:
+--   - Live markdown preview with syntax-aware rendering
+--   - Custom heading styles with colored backgrounds (H1-H6)
+--   - Code block highlighting with language badges
+--   - Enhanced bullet lists with custom icons (●, ○, ◆, ◇)
+--   - Checkbox rendering with strikethrough for completed items
+--   - Custom canceled checkbox ([-] → 󱘹)
+--   - Horizontal rule rendering (─ character)
+--   - Concealment for clean appearance
+--   - Alpha-blended background colors for headings
+--   - Toggle functionality for switching rendering on/off
+--
+-- Keybindings:
+--   ,vm - Toggle markdown rendering
+--
+-- Heading Colors:
+--   H1: #008cff (bright blue)
+--   H2: #339be3 (light blue)
+--   H3: #66a8c7 (cyan)
+--   H4: #99b28c (green)
+--   H5: #cc9b40 (yellow-orange)
+--   H6: #ff8700 (orange)
+--
+-- Configuration:
+--   Render modes: normal, command, terminal
+--   Debounce: 100ms
+--   Max file size: 10MB
+-- ============================================================================
+
 return {
   "MeanderingProgrammer/render-markdown.nvim",
   ft = { "markdown" },
