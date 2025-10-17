@@ -9,7 +9,7 @@ function M.get_relative_path_and_line()
   local relative_path = vim.fn.fnamemodify(current_file, ':.')
 
   -- Format: @{{relative path}} L{{line number}}
-  local formatted_text = string.format("@%s L%d", relative_path, current_line)
+  local formatted_text = string.format("@%s#L%d", relative_path, current_line)
 
   -- Copy to clipboard
   vim.fn.setreg('+', formatted_text)
