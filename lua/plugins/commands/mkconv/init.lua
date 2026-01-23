@@ -24,7 +24,7 @@
 --   Code Blocks:  ``` → {code} (and vice versa)
 --   Links:        [text](url) → [[text:url]] (and vice versa)
 --   Bold:         **text** → ''text'' (and vice versa)
---   Tables:       Markdown tables ↔ Backlog tables (with |h header marker)
+--   Strikethrough: ~~text~~ → %%text%% (and vice versa)
 -- ============================================================================
 
 return {
@@ -37,52 +37,18 @@ return {
       text = text:gsub("```.-\n(.-)\n```", "{code}\n%1\n{/code}")
       text = text:gsub("`(.-)`", "{code}%1{/code}")
       text = text:gsub("%*%*(.-)%*%*", "''%1''")
+      text = text:gsub("~~(.-)~~", "%%%%%1%%%%")
       text = text:gsub("%[(.-)%]%((.-)%)", "[[%1:%2]]")
 
       local indent_levels = {}
       local result = {}
-      local in_table = false
-      local table_lines = {}
 
       for line in text:gmatch("[^\r\n]+") do
-        -- Check if we're entering or leaving a table
-        if line:match("^%s*|") then
-          if not in_table then
-            in_table = true
-            table_lines = {}
-          end
-          table.insert(table_lines, line)
+        local hashes, title = line:match("^(#+)%s+(.*)")
+        if hashes then
+          table.insert(result, string.rep("*", #hashes) .. " " .. title)
 
-          -- Check if this is a separator line (contains only |, -, and spaces)
-          if line:match("^%s*|%s*%-+") then
-            -- Skip separator lines in Markdown tables
-          end
-        else
-          -- We've left the table, process it
-          if in_table then
-            in_table = false
-            local header_added = false
-            for i, tline in ipairs(table_lines) do
-              -- Skip separator lines
-              if not tline:match("^%s*|%s*%-+") then
-                if not header_added then
-                  -- First non-separator line is the header, add |h marker
-                  table.insert(result, tline .. "h")
-                  header_added = true
-                else
-                  table.insert(result, tline)
-                end
-              end
-            end
-            table_lines = {}
-          end
-
-          -- Process non-table lines
-          local hashes, title = line:match("^(#+)%s+(.*)")
-          if hashes then
-            table.insert(result, string.rep("*", #hashes) .. " " .. title)
-
-          elseif line:match("^%s*%d+%.%s+") then
+        elseif line:match("^%s*%d+%.%s+") then
           local indent, content = line:match("^(%s*)%d+%.%s+(.*)")
           local current_indent = #indent
 
@@ -125,24 +91,6 @@ return {
         else
           table.insert(result, line)
         end
-        end
-      end
-
-      -- Handle any remaining table lines at the end of the text
-      if in_table then
-        local header_added = false
-        for i, tline in ipairs(table_lines) do
-          -- Skip separator lines
-          if not tline:match("^%s*|%s*%-+") then
-            if not header_added then
-              -- First non-separator line is the header, add |h marker
-              table.insert(result, tline .. "h")
-              header_added = true
-            else
-              table.insert(result, tline)
-            end
-          end
-        end
       end
 
       return table.concat(result, "\n")
@@ -152,54 +100,17 @@ return {
       text = text:gsub("{code}\n(.-)\n{/code}", "```\n%1\n```")
       text = text:gsub("{code}(.-){/code}", "`%1`")
       text = text:gsub("''(.-)''", "**%1**")
+      text = text:gsub("%%%%(.-)%%%%", "~~%1~~")
       text = text:gsub("%[%[(.-):(.-)%]%]", "[%1](%2)")
 
       local result = {}
-      local in_table = false
-      local is_header = false
-      local table_lines = {}
 
       for line in text:gmatch("[^\r\n]+") do
-        -- Check if this is a table line
-        if line:match("^%s*|.*|%s*h%s*$") then
-          -- This is a header line with |h marker
-          is_header = true
-          in_table = true
-          table_lines = {}
-          -- Remove the |h marker and add to table lines
-          local header_line = line:gsub("%s*h%s*$", "")
-          table.insert(table_lines, header_line)
-        elseif line:match("^%s*|") then
-          if in_table then
-            table.insert(table_lines, line)
-          end
-        else
-          -- We've left the table, process it
-          if in_table then
-            in_table = false
-            if #table_lines > 0 then
-              -- Add the header line
-              table.insert(result, table_lines[1])
-              -- Add separator line
-              local separator = table_lines[1]:gsub("[^|]", "-"):gsub("%-+", function(s)
-                return string.rep("-", math.max(3, #s))
-              end)
-              table.insert(result, separator)
-              -- Add data lines
-              for i = 2, #table_lines do
-                table.insert(result, table_lines[i])
-              end
-            end
-            table_lines = {}
-            is_header = false
-          end
+        local stars, title = line:match("^(%*+)%s+(.*)")
+        if stars then
+          table.insert(result, string.rep("#", #stars) .. " " .. title)
 
-          -- Process non-table lines
-          local stars, title = line:match("^(%*+)%s+(.*)")
-          if stars then
-            table.insert(result, string.rep("#", #stars) .. " " .. title)
-
-          elseif line:match("^%++%s+") then
+        elseif line:match("^%++%s+") then
           local pluses, content = line:match("^(%++)%s+(.*)")
           local level = #pluses
           local indent = string.rep("  ", level - 1)
@@ -213,24 +124,6 @@ return {
 
         else
           table.insert(result, line)
-        end
-        end
-      end
-
-      -- Handle any remaining table lines at the end of the text
-      if in_table then
-        if #table_lines > 0 then
-          -- Add the header line
-          table.insert(result, table_lines[1])
-          -- Add separator line
-          local separator = table_lines[1]:gsub("[^|]", "-"):gsub("%-+", function(s)
-            return string.rep("-", math.max(3, #s))
-          end)
-          table.insert(result, separator)
-          -- Add data lines
-          for i = 2, #table_lines do
-            table.insert(result, table_lines[i])
-          end
         end
       end
 
