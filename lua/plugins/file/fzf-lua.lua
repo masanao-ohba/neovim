@@ -47,30 +47,28 @@ return {
     local fzf_lua = require("fzf-lua")
     fzf_lua.setup(opts)
 
-    function _G.search_with_highlight()
-      local query = vim.fn.expand("<cword>")
-      if query == "" then
-        print("No highlighted text found for search")
-        return
-      end
-
-      -- カスタム実装: rgコマンドを直接実行してfzfに結果を渡す
-      local cmd = string.format('rg "%s" --column --line-number --no-heading --color=always --smart-case --with-filename', query)
-
-      fzf_lua.fzf_exec(cmd, {
+    local function rg_search(query)
+      if query == "" then return end
+      local escaped = vim.fn.shellescape(vim.fn.escape(query, "\\[]{}()^$.*+?|"))
+      fzf_lua.fzf_exec("rg " .. escaped .. " --column --line-number --no-heading --color=always --smart-case --with-filename", {
         prompt = "*Rg> ",
-        actions = {
-          ["default"] = fzf_lua.actions.file_tabedit,
-        },
-        fzf_opts = {
-          ['--delimiter'] = ':',
-          ['--preview-window'] = 'right:60%,+{2}+3/3,~3',
-        },
+        actions = { ["default"] = fzf_lua.actions.file_tabedit },
+        fzf_opts = { ["--delimiter"] = ":", ["--preview-window"] = "right:60%,+{2}+3/3,~3" },
         preview = "bat --style=numbers --color=always --highlight-line={2} {1}",
       })
     end
 
-    vim.keymap.set("n", "<F12>", _G.search_with_highlight, { noremap = true, silent = true })
+    vim.keymap.set("n", "<F12>", function() 
+      local save_isk = vim.bo.iskeyword
+      vim.bo.iskeyword = save_isk .. ",-"
+      rg_search(vim.fn.expand("<cword>")) 
+      vim.bo.iskeyword = save_isk
+    end, { silent = true })
+    vim.keymap.set("v", "<F12>", function()
+      local query = table.concat(vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() }), "\n")
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+      rg_search(query)
+    end, { silent = true })
     -- FZF files機能を無効化（使用頻度低いため）
     -- vim.keymap.set("n", ",f", function()
     --   fzf_lua.files({

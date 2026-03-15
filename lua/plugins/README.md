@@ -285,6 +285,16 @@ Comprehensive list of installed plugins organized by category.
 - Bullet list beautification
 - Configurable concealment levels
 
+### snacks.nvim (image module)
+**Repository**: `folke/snacks.nvim`
+**Category**: Diagram Rendering
+**Purpose**: Rendering of images and Mermaid diagrams in markdown buffers
+**Key Features**:
+- Mermaid diagram rendering via mmdc (mermaid-cli)
+- Floating window display on cursor hover
+- Content-hash caching for performance
+- Auto theme detection (dark/light)
+
 ### indent-blankline.nvim
 **Repository**: `lukas-reineke/indent-blankline.nvim`
 **Category**: Visual Guide
@@ -342,4 +352,4 @@ All plugins are managed by **lazy.nvim**, providing:
 - Event-based and command-based loading
 - Easy configuration and updates
 
-Total Plugins: **29**
+Total Plugins: **30**

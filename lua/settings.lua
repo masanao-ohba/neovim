@@ -42,8 +42,8 @@ vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohlsearch<CR>', { noremap = true, 
 -- Use regex mode (very magic) by default when searching
 vim.keymap.set('n', '/', '/\\v', { noremap = true, desc = 'Search with regex (very magic)' })
 vim.keymap.set('n', '?', '?\\v', { noremap = true, desc = 'Backward search with regex (very magic)' })
-vim.api.nvim_set_keymap('n', '<C-l>', 'gt', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-h>', 'gT', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', '$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-h>', '0', { noremap = true, silent = true })
 vim.keymap.set('n', ',vdv', ':vertical diffsplit ', { noremap = true, desc = 'Vertical diff split' })
 vim.keymap.set('n', ',vdh', ':diffsplit ', { noremap = true, desc = 'Horizontal diff split' })
 
