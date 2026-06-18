@@ -9,11 +9,13 @@
 --
 -- Prerequisites:
 --   - npm install -g @mermaid-js/mermaid-cli  (mmdc)
+--   - chrome-headless-shell (puppeteer 経由, mmdc の mermaid→PNG 変換に必要)
 --   - ImageMagick (for non-PNG image conversion)
 --   - Terminal with Kitty Graphics Protocol (WezTerm, Kitty)
 --
 -- Keybindings:
 --   ,vi - Toggle image/diagram rendering
+--   ,vf - Force-disable rendering (InsertLeave でも復帰しない)
 --
 -- Note:
 --   WezTerm は inline rendering 非対応のため doc.inline=false を設定
@@ -127,6 +129,57 @@ local function patch_render_fallback_cursor()
   end
 end
 
+--- カーソルが mermaid コードブロック内にあるかを treesitter で判定する
+local function in_mermaid_block()
+  local ok, ts = pcall(vim.treesitter.get_node)
+  if not ok or not ts then
+    return false
+  end
+  local node = ts
+  while node do
+    if node:type() == "fenced_code_block" then
+      for child in node:iter_children() do
+        if child:type() == "info_string" then
+          local text = vim.treesitter.get_node_text(child, 0)
+          if text and text:match("^mermaid") then
+            return true
+          end
+        end
+      end
+      return false
+    end
+    node = node:parent()
+  end
+  return false
+end
+
+--- Floating preview の有効/無効を切り替える（通知なし）
+--- 無効化時は CursorMoved autocmd（augroup "snacks.image.doc.{buf}"）も削除する。
+--- _attach() が作る CursorMoved は config.enabled をチェックしないため、
+--- augroup を残すとカーソル移動のたびに hover() が再トリガーされる。
+local function set_image_enabled(enabled)
+  local config = Snacks.image.config
+  if config.enabled == enabled then
+    return
+  end
+  config.enabled = enabled
+  config.convert.notify = enabled
+  local buf = vim.api.nvim_get_current_buf()
+  if enabled then
+    vim.b[buf].snacks_image_attached = false
+    Snacks.image.doc.attach(buf)
+  else
+    Snacks.image.doc.hover_close()
+    Snacks.image.placement.clean(buf)
+    pcall(vim.api.nvim_del_augroup_by_name, "snacks.image.doc." .. buf)
+    vim.b[buf].snacks_image_attached = false
+  end
+end
+
+-- 状態管理: 強制OFF / InsertMode中の自動OFF
+local force_disabled = false
+local auto_disabled = false
+
 return {
   "folke/snacks.nvim",
   lazy = false,
@@ -147,7 +200,7 @@ return {
         max_height = 80,
       },
       convert = {
-        notify = true,
+        notify = false,
         mermaid = function()
           local theme = vim.o.background == "light" and "neutral" or "dark"
           return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme, "-s", "4" }
@@ -164,9 +217,37 @@ return {
     patch_dim_override()
     patch_render_fallback_cursor()
 
-    -- ウィンドウリサイズ時にプレビューを再描画
+    -- InsertEnter: mermaid ブロック内なら floating preview を自動OFF
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      pattern = "*.md",
+      callback = function()
+        if force_disabled then
+          return
+        end
+        if in_mermaid_block() then
+          auto_disabled = true
+          set_image_enabled(false)
+        end
+      end,
+    })
+
+    -- InsertLeave: 自動OFFからの復帰（強制OFFモード中は復帰しない）
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      pattern = "*.md",
+      callback = function()
+        if auto_disabled then
+          auto_disabled = false
+          set_image_enabled(true)
+        end
+      end,
+    })
+
+    -- ウィンドウリサイズ時にプレビューを再描画（無効化中はスキップ）
     vim.api.nvim_create_autocmd("WinResized", {
       callback = function()
+        if not Snacks.image.config.enabled then
+          return
+        end
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
           if vim.bo[buf].filetype == "markdown" then
             Snacks.image.placement.clean(buf)
@@ -181,17 +262,31 @@ return {
     {
       ",vi",
       function()
-        local config = Snacks.image.config
-        config.doc.enabled = not config.doc.enabled
-        Snacks.image.placement.clean(vim.api.nvim_get_current_buf())
-        if config.doc.enabled then
-          vim.b.snacks_image_attached = false
-          Snacks.image.doc.attach(vim.api.nvim_get_current_buf())
+        local new_state = not Snacks.image.config.enabled
+        if new_state then
+          force_disabled = false
+          auto_disabled = false
         end
-        vim.notify("Snacks Image: " .. (config.doc.enabled and "ON" or "OFF"), vim.log.levels.INFO)
+        set_image_enabled(new_state)
+        vim.notify("Snacks Image: " .. (new_state and "ON" or "OFF"), vim.log.levels.INFO)
       end,
       ft = "markdown",
       desc = "Toggle image/diagram rendering",
+    },
+    {
+      ",vf",
+      function()
+        force_disabled = not force_disabled
+        if force_disabled then
+          auto_disabled = false
+          set_image_enabled(false)
+        else
+          set_image_enabled(true)
+        end
+        vim.notify("Snacks Image Force-OFF: " .. (force_disabled and "ON" or "OFF"), vim.log.levels.INFO)
+      end,
+      ft = "markdown",
+      desc = "Force-disable image/diagram rendering (ignore auto-restore)",
     },
   },
 }

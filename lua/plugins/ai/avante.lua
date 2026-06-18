@@ -38,9 +38,11 @@ return {
     -- provideをclaudeに変更
     provider = "copilot",
     auto_suggestions_provider = "copilot",
-    copilot = {
-      -- model = "claude-sonnet-4"
-      model = "gpt-4.1"
+    providers = {
+      copilot = {
+        -- model = "claude-sonnet-4"
+        model = "gpt-4.1"
+      },
     },
     -- ウィンドウ設定
     windows = {

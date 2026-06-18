@@ -38,7 +38,7 @@
 
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  ft = { "markdown" },
+  lazy = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
@@ -73,7 +73,7 @@ return {
       border = false,
       border_prefix = false,
       border_virtual = true,
-      icons = '',
+      icons = {},
       left_margin = 0,
       left_pad = 0,
       min_width = 0,
@@ -132,6 +132,7 @@ return {
         canceled = {
           raw = "[-]",
           rendered = "󱘹",
+          highlight = "@markup.strikethrough",
           scope_highlight = "@markup.strikethrough",
         },
       },

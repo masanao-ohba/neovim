@@ -5,7 +5,7 @@ return {
   dependencies = {
     "hrsh7th/cmp-buffer",
     "saadparwaiz1/cmp_luasnip",
-    "L3MON4D3/LuaSnip",
+    { "L3MON4D3/LuaSnip", pin = true },
     "rafamadriz/friendly-snippets",
   },
   config = function()
