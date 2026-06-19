@@ -153,6 +153,23 @@ local function in_mermaid_block()
   return false
 end
 
+--- 単一の markdown バッファに image preview を（再）アタッチする
+--- アタッチ判定フラグを落とし、既存 placement を掃除してから再アタッチする
+local function reattach_buf(buf)
+  vim.b[buf].snacks_image_attached = false
+  pcall(Snacks.image.placement.clean, buf)
+  Snacks.image.doc.attach(buf)
+end
+
+--- ロード済みの全 markdown バッファを再アタッチする
+local function reattach_markdown()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype == "markdown" then
+      reattach_buf(buf)
+    end
+  end
+end
+
 --- Floating preview の有効/無効を切り替える（通知なし）
 --- 無効化時は CursorMoved autocmd（augroup "snacks.image.doc.{buf}"）も削除する。
 --- _attach() が作る CursorMoved は config.enabled をチェックしないため、
@@ -166,8 +183,7 @@ local function set_image_enabled(enabled)
   config.convert.notify = enabled
   local buf = vim.api.nvim_get_current_buf()
   if enabled then
-    vim.b[buf].snacks_image_attached = false
-    Snacks.image.doc.attach(buf)
+    reattach_buf(buf)
   else
     Snacks.image.doc.hover_close()
     Snacks.image.placement.clean(buf)
@@ -245,17 +261,17 @@ return {
     -- ウィンドウリサイズ時にプレビューを再描画（無効化中はスキップ）
     vim.api.nvim_create_autocmd("WinResized", {
       callback = function()
-        if not Snacks.image.config.enabled then
-          return
-        end
-        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-          if vim.bo[buf].filetype == "markdown" then
-            Snacks.image.placement.clean(buf)
-            vim.b[buf].snacks_image_attached = false
-            Snacks.image.doc.attach(buf)
-          end
+        if Snacks.image.config.enabled then
+          reattach_markdown()
         end
       end,
+    })
+
+    -- 起動引数で開いた markdown は FileType を取りこぼし snacks.image が
+    -- アタッチされない（:e で復帰する既知挙動）。起動完了後に明示再アタッチする。
+    vim.api.nvim_create_autocmd("VimEnter", {
+      once = true,
+      callback = reattach_markdown,
     })
   end,
   keys = {
