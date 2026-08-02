@@ -110,6 +110,16 @@ return {
       left_margin = 0,
       highlight = 'RenderMarkdownDash',
     },
+    -- 見出しツリーガイド（案D）: H2以下の本文・リスト・テーブル・コードブロックを
+    -- 見出しレベルに応じて段階的にインデントし、縦線アイコンで親子関係を可視化する。
+    indent = {
+      enabled = true,
+      per_level = 2,
+      skip_level = 1,
+      skip_heading = false,
+      icon = '│',
+      highlight = 'RenderMarkdownIndent',
+    },
     bullet = {
       enabled = true,
       render_modes = false,
@@ -205,10 +215,41 @@ return {
             bold = (i <= 4),
           })
         end
+
+        hl(0, "RenderMarkdownIndent", { fg = "#4b5a66" })
       end,
     })
 
     vim.cmd("doautocmd ColorScheme")
+
+    -- ------------------------------------------------------------------------
+    -- 見出しツリーガイド（案D）
+    --
+    -- render-markdown.nvim 組み込みの `indent` モジュール（org-indent-mode 相当）を使う。
+    -- 見出しレベルに応じて本文・リスト・テーブル・コードブロックまで一括でインデントするため、
+    -- 独自 extmark を重ねる方式と違いテーブル罫線やコードブロックの描画とも競合しない。
+    -- バッファの実テキストは変更されない（表示のみ）。
+    -- 編集中に煩わしければ ,vh でバッファ単位に即座に案A相当（インデント無効）へ戻せる。
+    -- ------------------------------------------------------------------------
+    local indent_enabled_by_buf = {}
+
+    local function set_indent(bufnr, enabled)
+      indent_enabled_by_buf[bufnr] = enabled
+      require("render-markdown").render({
+        buf = bufnr,
+        config = { indent = { enabled = enabled } },
+      })
+    end
+
+    vim.keymap.set("n", ",vh", function()
+      local buf = vim.api.nvim_get_current_buf()
+      local enabled = indent_enabled_by_buf[buf]
+      if enabled == nil then
+        enabled = true -- opts.indent.enabled のデフォルト
+      end
+      set_indent(buf, not enabled)
+      vim.notify("見出しインデント: " .. (not enabled and "ON（案D）" or "OFF（案A）"))
+    end, { desc = "見出しインデントの表示切替（案D ⇔ 案A）" })
 
     vim.keymap.set("n", ",vm", require("render-markdown").toggle, { desc = "Toggle Render Markdown" })
   end,
