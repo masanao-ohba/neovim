@@ -126,10 +126,8 @@ function M.wrap_word_under_cursor()
     word_start = word_start - 1
   end
 
-  -- Adjust word boundary
-  if word_start > 0 or not line:sub(1, 1):match('[%w_]') then
-    word_start = word_start + 1
-  end
+  -- Adjust word boundary (loop stops on a non-word char or at 0; the word starts one past it)
+  word_start = word_start + 1
 
   -- Find word end (forward search from start)
   local word_end = word_start
