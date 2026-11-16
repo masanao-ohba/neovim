@@ -27,7 +27,7 @@
 --   <leader>gS   - Stage entire buffer
 --   <leader>gu   - Undo stage hunk
 --   <leader>gR   - Reset entire buffer
---   <leader>gb   - Git blame/history (current file)
+--   <leader>gb   - Git blame (configured in fugitive.lua)
 --   <leader>gB   - Git history (project)
 --   <leader>gt   - Test/refresh gitsigns
 -- ============================================================================
@@ -65,7 +65,7 @@ return {
     
     gitsigns.setup({
       debug_mode = false, -- Enable for verbose logging
-      current_line_blame = false, -- お好みで true にすると常時表示
+      current_line_blame = false, -- set to true to always show
       base = "HEAD", -- Show ALL changes including staged (HEAD = compare with last commit, nil = only unstaged changes)
       signs = {
         add          = { text = '██', hl = 'GitSignsAdd' },     -- Split blocks - HIGH impact for unstaged additions
@@ -86,18 +86,17 @@ return {
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
-        -- Git blame表示
-        vim.keymap.set('n', '<leader>gb', '<cmd>DiffviewFileHistory %<cr>', { desc = 'Git blame/history for current file' })
+        -- Git blame
         vim.keymap.set('n', '<leader>gB', '<cmd>DiffviewFileHistory<cr>', { desc = 'Git history for project' })
 
-        -- コミット間の移動
+        -- Navigate between commits
         vim.keymap.set('n', '[c', gs.prev_hunk, { buffer = bufnr, desc = 'Previous hunk' })
         vim.keymap.set('n', ']c', gs.next_hunk, { buffer = bufnr, desc = 'Next hunk' })
         -- Alternative with Ctrl
         vim.keymap.set('n', '<C-S-p>', gs.prev_hunk, { buffer = bufnr, desc = 'Previous hunk' })
         vim.keymap.set('n', '<C-S-n>', gs.next_hunk, { buffer = bufnr, desc = 'Next hunk' })
 
-        -- その他便利なキーマップ
+        -- Other handy keymaps
         vim.keymap.set('n', '<leader>gp', gs.preview_hunk, { buffer = bufnr, desc = 'Preview hunk' })
         vim.keymap.set('n', '<leader>gd', gs.diffthis, { buffer = bufnr, desc = 'Diff this' })
         vim.keymap.set('n', '<leader>gs', gs.stage_hunk, { buffer = bufnr, desc = 'Stage hunk' })
@@ -106,7 +105,7 @@ return {
         vim.keymap.set('n', '<leader>gu', gs.undo_stage_hunk, { buffer = bufnr, desc = 'Undo stage hunk' })
         vim.keymap.set('n', '<leader>gR', gs.reset_buffer, { buffer = bufnr, desc = 'Reset buffer' })
 
-        -- デバッグ用コマンド
+        -- Debug commands
         vim.keymap.set('n', '<leader>gt', function()
           local info = {}
           table.insert(info, 'Gitsigns Debug Info:')

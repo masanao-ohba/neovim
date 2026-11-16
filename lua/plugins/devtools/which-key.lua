@@ -18,7 +18,7 @@
 -- Defined Groups:
 --   <leader>a   - AI operations
 --   <leader>ac  - Claude integrations
---   <leader>ag  - Avante operations
+--   <leader>ap  - Copilot ON/OFF
 --   <leader>g   - Git operations
 --   <leader>c   - Color management
 --   <leader>`   - Code blocks for Markdown
@@ -39,9 +39,9 @@ return {
     vim.o.timeoutlen = 500
   end,
   opts = {
-    -- modern presetを使用
+    -- Use the modern preset
     preset = "modern",
-    -- その他の基本設定
+    -- Other basic settings
     delay = 450,
     expand = 1,
     notify = true,
@@ -49,31 +49,31 @@ return {
       { "<auto>", mode = "nixsotc" },
       { "s", mode = { "n", "v" } },
     },
-    -- グループ表示の設定
+    -- Group display settings
     icons = {
       mappings = false,
-      group = "", -- グループの前に表示される文字を空にする（"+"を非表示）
+      group = "", -- Empty the prefix shown before groups (hide "+")
     },
   },
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
 
-    -- Escキーでwhich-keyを無効化
+    -- Close which-key with Esc
     wk.add({
       { "<Esc>", hidden = true, mode = "n" },
     })
 
-    -- 基本的なキーマッピングのグループを登録
+    -- Register basic keymap groups
     wk.add({
       { "<leader>a",   group = "󰚩  AI" },
       { "<leader>ac",  group = "󰛄  Claude" },
-      { "<leader>ag",  group = "  Avante" },
-      { "<leader>aga", desc  = "󱋉  Ask"},
-      { "<leader>age", desc  = "  Edit" },
+      { "<leader>ap",  group = "Copilot" },
       { "<leader>g",   group = "  Git" },
       { "<leader>gs",  desc  = "󱖫  Git Status NeoTree" },
       { "<leader>gy",  desc  = "  Git Yank GitHub URL" },
+      { "<leader>gv",  desc  = "Diffview: compare range" },
+      { "<leader>gV",  desc  = "Diffview: close" },
       { "<leader>c",   desc  = "  Color Managements" },
       { "<leader>cp",  desc  = "󰴱  ColorPicker" },
       { "<leader>cc",  desc  = "  Convert ColorFromat" },

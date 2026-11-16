@@ -20,11 +20,32 @@
 --   <S-]>   - Next suggestion
 --   <S-[>   - Previous suggestion
 --   <C-d>   - Dismiss suggestion
+--   <leader>apd - Temporarily turn Copilot OFF (all buffers)
+--   <leader>ape - Turn Copilot back ON
 -- ============================================================================
 
 return {
   "zbirenbaum/copilot.lua",
   cmd = "Copilot",
+  event = "InsertEnter",
+  keys = {
+    {
+      "<leader>apd",
+      function()
+        require("copilot.command").disable()
+        vim.notify("Copilot: OFF")
+      end,
+      desc = "Copilot OFF",
+    },
+    {
+      "<leader>ape",
+      function()
+        require("copilot.command").enable()
+        vim.notify("Copilot: ON")
+      end,
+      desc = "Copilot ON",
+    },
+  },
   config = function()
     require("copilot").setup({
       -- suggestion = {enabled = false},

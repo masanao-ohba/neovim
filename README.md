@@ -21,7 +21,7 @@ Focused on AI-assisted development, Git workflow, and comfortable Markdown editi
 
 ## Features
 
-- **AI-Powered Development** - Copilot, Avante (Claude/GPT), Claude Code integrations
+- **AI-Powered Development** - Copilot, Claude Code integrations
 - **Mermaid Diagram Rendering** - Inline diagram preview in Markdown via [snacks.nvim](https://github.com/folke/snacks.nvim) image module
 - **Rich Markdown Experience** - Styled headings, code blocks, checkboxes with [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)
 - **Git Integration** - gitsigns, diffview, lazygit for seamless Git workflow
@@ -77,7 +77,7 @@ npm install -g @mermaid-js/mermaid-cli
 │   │   ├── path-info.lua       #   Copy file path + line number
 │   │   └── word-replace.lua    #   Interactive word replacement
 │   └── plugins/                # Plugin configs (organized by category)
-│       ├── ai/                 #   AI integrations (Copilot, Avante, Claude Code)
+│       ├── ai/                 #   AI integrations (Copilot, Claude Code)
 │       ├── commands/           #   Custom commands (Markdown converter, etc.)
 │       ├── completion/         #   nvim-cmp, treesitter
 │       ├── devtools/           #   Git tools, terminal, which-key
@@ -93,7 +93,6 @@ npm install -g @mermaid-js/mermaid-cli
 
 | Plugin | Description |
 |--------|-------------|
-| [avante.nvim](https://github.com/yetone/avante.nvim) | AI-powered code editing with Claude/GPT |
 | [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) | Copilot chat interface |
 | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) | Inline code suggestions |
 | [copilot-cmp](https://github.com/zbirenbaum/copilot-cmp) | Copilot source for nvim-cmp |

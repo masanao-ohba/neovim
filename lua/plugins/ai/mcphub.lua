@@ -6,16 +6,16 @@
 -- Purpose:
 --   Model Context Protocol (MCP) Hub integration for Neovim.
 --   Enables connection to multiple MCP servers and provides context
---   aggregation for AI tools like Avante.
+--   aggregation for AI tools.
 --
 -- Key Features:
 --   - MCP server management and integration
 --   - System prompt generation from active MCP servers
---   - Extension support for AI plugins (Avante integration)
+--   - Extension support for AI plugins
 --   - Automatic MCP Hub CLI installation via npm
 --
 -- Usage:
---   Used by Avante for enhanced context awareness through MCP servers
+--   Provides enhanced context awareness through MCP servers
 -- ============================================================================
 
 return {

@@ -27,7 +27,9 @@ vim.o.hidden = true
 vim.o.wrap = false
 
 -- Color scheme
-vim.cmd('syntax on')
+-- 'syntax on' is enabled by default in Neovim. Running filetype detection early on files given as startup args
+-- makes ftplugin's vim.treesitter.start preload the buffer so BufReadPre/BufReadPost never fire
+-- (lazy-loading of gitsigns etc. doesn't trigger at startup), so don't call it explicitly.
 vim.g.nvcode_termcolors = 256
 vim.cmd('colorscheme nord')
 

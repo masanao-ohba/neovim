@@ -15,18 +15,6 @@ Comprehensive list of installed plugins organized by category.
 
 ## AI Integrations
 
-### avante.nvim
-**Repository**: `yetone/avante.nvim`
-**Category**: AI Assistance
-**Purpose**: AI-powered code editing and chat interface with Claude/GPT integration
-**Key Features**:
-- Interactive AI chat with code context
-- Direct code editing through AI suggestions
-- MCP (Model Context Protocol) integration
-- Customizable AI providers (Copilot with Claude/GPT models)
-- Window-based interface with sidebar
-- Integration with fzf-lua for selections
-
 ### CopilotChat.nvim
 **Repository**: `CopilotC-Nvim/CopilotChat.nvim`
 **Category**: AI Assistance
@@ -87,7 +75,6 @@ Comprehensive list of installed plugins organized by category.
 **Key Features**:
 - Model Context Protocol server integration
 - System prompt generation from active servers
-- Extension support for Avante
 
 ---
 
