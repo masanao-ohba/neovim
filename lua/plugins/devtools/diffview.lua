@@ -24,6 +24,7 @@
 --
 -- Keybindings (Diffview view / file panel; shown in g? help):
 --   gu        - Toggle unified / split diff in the same tab (Tab / S-Tab work in unified)
+--   t         - Open the file in a new tab (cursor line is carried over, also from unified view)
 --   yy        - (file panel) Copy relative path of file / folder
 --   Disabled defaults: [F ]F L X <C-w><C-f> <C-w>gf g<C-x>, panel: <down> <up> o <2-LeftMouse> f i R <c-f> <c-b>
 --   zO / zC   - (file panel) Expand / collapse all folders (replaces zR / zM)
@@ -60,6 +61,32 @@ return {
 
     local toggle_unified
 
+    -- Line of the new-side file that the cursor line of a unified diff buffer corresponds to
+    local function unified_target_line()
+      local cur = vim.api.nvim_win_get_cursor(0)[1]
+      local lines = vim.api.nvim_buf_get_lines(0, 0, cur, false)
+      for i = cur, 1, -1 do
+        local start = lines[i]:match('^@@ %-%d+,?%d* %+(%d+)')
+        if start then
+          local lnum = tonumber(start) - 1
+          for j = i + 1, cur do
+            if lines[j]:sub(1, 1) ~= '-' then lnum = lnum + 1 end
+          end
+          return math.max(lnum, 1)
+        end
+      end
+    end
+
+    -- Open the current file in a new tab from the unified view
+    local function unified_goto_file_tab()
+      local lnum = unified_target_line()
+      local tab = vim.api.nvim_get_current_tabpage()
+      require('diffview.actions').goto_file_tab()
+      if vim.api.nvim_get_current_tabpage() == tab then return end -- not opened (e.g. file deleted)
+      local last = vim.api.nvim_buf_line_count(0)
+      vim.api.nvim_win_set_cursor(0, { math.min(lnum or 1, last), 0 })
+    end
+
     local function render_unified()
       local view = require('diffview.lib').get_current_view()
       local layout = view and view.cur_layout
@@ -78,6 +105,7 @@ return {
         { '<leader>e', actions.toggle_files, 'Diffview: toggle file panel' },
         { 'g?', actions.help('view'), 'Diffview: help' },
         { '<leader>v', review.toggle_at_cursor, 'Diffview: toggle viewed' },
+        { 't', unified_goto_file_tab, 'Diffview: open file in new tab' },
       }
       for _, m in ipairs(maps) do
         vim.keymap.set('n', m[1], m[2], { buffer = buf, desc = m[3] })
@@ -180,17 +208,19 @@ return {
     end
 
     local unified_map = { 'n', 'gu', function() toggle_unified() end, { desc = 'Toggle unified / split diff' } }
+    local tab_map = { 'n', 't', require('diffview.actions').goto_file_tab, { desc = 'Open the file in a new tab' } }
     local viewed_map = { 'n', '<leader>v', review.toggle_at_cursor, { desc = 'Toggle viewed (reviewed) mark' } }
     require('diffview').setup({
       file_panel = {
         win_config = { position = 'left', width = 45 },
       },
       keymaps = {
-        view = vim.list_extend({ unified_map, viewed_map }, disabled(common_disabled)),
+        view = vim.list_extend({ unified_map, viewed_map, tab_map }, disabled(common_disabled)),
         file_panel = vim.list_extend(vim.list_extend({
           { 'n', 'yy', copy_path, { desc = 'Copy relative path of file / folder' } },
           unified_map,
           viewed_map,
+          tab_map,
           { 'n', '<C-d>', scroll_diff(2), { desc = 'Scroll diff down (2 lines, as lazygit)' } },
           { 'n', '<C-u>', scroll_diff(-2), { desc = 'Scroll diff up (2 lines, as lazygit)' } },
           { 'n', 'zR', false },
